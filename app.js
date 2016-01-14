@@ -3,6 +3,7 @@
 $(document).ready(init); 
 
 var contacts = []; 
+var customGroups = []; 
 var editingContact = false; 
 var isAlpha = false; 
 var editObj; 
@@ -33,6 +34,7 @@ function add() {
   contact.phone = $('#newPhone').val();
   contact.email = $('#newEmail').val();
   contact.group = _.uniq($('#newGroup').val().toLowerCase().split(/\W/)) ;
+  _.concat(customGroups, contact.group); 
   contact.birthday = $('#newBirthday').val();
   
   contacts.push(contact);
@@ -71,10 +73,13 @@ function updateList(){
     $contacts.append($newRow); 
   });
   $contactList.append($contacts); 
+  $("#total").text(contacts.length); 
+  $("#customGroups").text(_.uniq(customGroups)); 
 }
 
 
 function remove(){
+  if (editingContact) { alert("Finish editing your contact or close the editform"); return; };
   var index = $(this).closest('.item').index(); 
   contacts.splice(index, 1); 
   updateList(); 
@@ -88,6 +93,7 @@ function select(){
 };
 
 function removeSelected(){
+  if (editingContact) { alert("Finish editing your contact or close the editform"); return; };
   var $item = $('.item');
   var indexes = []; 
   $item.each(function(index){
@@ -155,6 +161,7 @@ function confirm(){
   editObj.email = $('#editEmail').val(); 
   editObj.birthday = $('#editBirthday').val(); 
   editObj.group = _.uniq( $('#editGroup').val().toLowerCase().split(/\W/) ); 
+  _.concat(customGroups, editObj.group); 
   var index = $('#previous').index(); 
   contacts[index].name = editObj.name; 
   contacts[index].phone = editObj.phone; 
