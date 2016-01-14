@@ -5,6 +5,9 @@ $(document).ready(init);
 var contacts = []; 
 var editingContact = false; 
 var isAlpha = false; 
+var isPhone = false; 
+var isAlphaEmail = false; 
+var isBirth = false; 
 var editObj; 
 
 function init() {
@@ -19,6 +22,8 @@ function init() {
   $body.on('click', '.select',(select));
   $('#removeSelected').click(removeSelected);
   $('#sortAlpha').click(sortAlpha);
+  $('#sortAlphaEmail').click(sortAlphaEmail);
+  $('#sortBirth').click(sortBirth);
   $('#showAll').click(showAll);
   $('#showFriends').click(showFriends);
   $('#showFamily').click(showFamily);
@@ -204,6 +209,93 @@ function sortAlpha(){
       return -1; 
     };
     if (a.name < b.name) {
+      return 1; 
+    };
+      return 0; 
+    });
+  }
+  
+  updateList(); 
+  saveToStorage(); 
+}; 
+
+function sortPhone(){
+  if (!isPhone) {
+    isPhone = true; 
+    contacts.sort(function(a, b){
+    if (a.phone > b.phone) {
+      return 1; 
+    };
+    if (a.phone < b.phone) {
+      return -1; 
+    };
+      return 0; 
+    });  
+  } else {
+    isPhone = false; 
+    contacts.sort(function(a, b){
+    if (a.phone > b.phone) {
+      return -1; 
+    };
+    if (a.phone < b.phone) {
+      return 1; 
+    };
+      return 0; 
+    });
+  }
+  
+  updateList(); 
+  saveToStorage(); 
+}; 
+
+function sortAlphaEmail(){
+  if (!isAlphaEmail) {
+    isAlphaEmail = true; 
+    contacts.sort(function(a, b){
+    if (a.email > b.email) {
+      return 1; 
+    };
+    if (a.email < b.email) {
+      return -1; 
+    };
+      return 0; 
+    });  
+  } else {
+    isAlphaEmail = false; 
+    contacts.sort(function(a, b){
+    if (a.email > b.email) {
+      return -1; 
+    };
+    if (a.email < b.email) {
+      return 1; 
+    };
+      return 0; 
+    });
+  }
+  
+  updateList(); 
+  saveToStorage(); 
+}; 
+
+function sortBirth(){
+  if (!isBirth) {
+    isBirth = true; 
+    contacts.sort(function(a, b){
+    if (a.birthday > b.birthday) {
+      return 1; 
+    };
+    if (a.birthday < b.birthday) {
+      return -1; 
+    };
+      return 0; 
+    });  
+  } else {
+    isBirth = false; 
+    contacts.sort(function(a, b){
+    if (a.birthday > b.birthday) {
+      return -1; 
+    };
+    if (a.birthday < b.birthday) {
       return 1; 
     };
       return 0; 
