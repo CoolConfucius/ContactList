@@ -3,7 +3,6 @@
 $(document).ready(init); 
 
 var contacts = []; 
-var customGroups = []; 
 var editingContact = false; 
 var isAlpha = false; 
 var editObj; 
@@ -14,7 +13,6 @@ function init() {
   var $body = $('#body'); 
 
   $('#add').click(add);
-  // $('#body').on('dblclick', '.remove', remove);
   $body.on('click', '.remove', remove);
   $body.on('click', '.edit', edit);
   $body.on('click', '#editConfirm', confirm);
@@ -29,14 +27,19 @@ function init() {
 
 
 function add() {
+  var $newNameVal = $('#newName').val();
+  var $newPhoneVal = $('#newPhone').val();
+  var $newEmailVal = $('#newEmail').val();
+  if ( (!$newNameVal) && (!$newPhoneVal && !$newEmailVal)) {
+    alert("At least enter a name, phone number, or email.");
+    return; 
+  };
   var contact = {};
-  contact.name = $('#newName').val();
-  contact.phone = $('#newPhone').val();
-  contact.email = $('#newEmail').val();
+  contact.name = $newNameVal;
+  contact.phone = $newPhoneVal;
+  contact.email = $newEmailVal;
   contact.group = _.uniq($('#newGroup').val().toLowerCase().split(/\W/)) ;
-  _.union(customGroups, contact.group); 
   contact.birthday = $('#newBirthday').val();
-  
   contacts.push(contact);
   
   saveToStorage(); 
@@ -45,16 +48,13 @@ function add() {
 
 function saveToStorage(){
   localStorage.contacts = JSON.stringify(contacts); 
-  localStorage.customGroups = JSON.stringify(customGroups); 
 }
 
 function loadFromStorage(){
   if (!localStorage.contacts) {
     localStorage.contacts = '[]'; 
-    localStorage.customGroups = '[]'; 
   };
   contacts = JSON.parse(localStorage.contacts);  
-  customGroups = JSON.parse(localStorage.customGroups);  
 }
 
 function updateList(){
@@ -62,7 +62,6 @@ function updateList(){
   $contactList.empty(); 
   var $contacts = $('<div>').addClass('container').attr('id', "body");
   contacts.forEach(function(contact){
-    _.union(customGroups, contact.group);
     var $newRow = $('<div>').addClass('row item'); 
     $newRow.append($('<div>').addClass('col-sm-3 name').text(contact.name) );
     $newRow.append($('<div>').addClass('col-sm-1 phone').text(contact.phone) );
@@ -78,8 +77,6 @@ function updateList(){
   });
   $contactList.append($contacts); 
   $("#total").text(contacts.length); 
-  console.log(customGroups);
-  $("#customGroups").text(_.uniq(customGroups)); 
 }
 
 
@@ -165,7 +162,6 @@ function confirm(){
   editObj.email = $('#editEmail').val(); 
   editObj.birthday = $('#editBirthday').val(); 
   editObj.group = _.uniq( $('#editGroup').val().toLowerCase().split(/\W/) ); 
-  _.union(customGroups, editObj.group); 
   var index = $('#previous').index(); 
   contacts[index].name = editObj.name; 
   contacts[index].phone = editObj.phone; 
