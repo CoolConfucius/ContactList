@@ -18,6 +18,10 @@ function init() {
   $('#body').on('click', '.edit', edit);
   $('#body').on('click', '#editConfirm', confirm);
   $('#sortAlpha').click(sortAlpha);
+  $('#showAll').click(showAll);
+  $('#showFriends').click(showFriends);
+  $('#showFamily').click(showFamily);
+  $('#showCustom').click(showCustom);
 }
 
 
@@ -27,7 +31,7 @@ function add() {
   contact.name = $('#newName').val();
   contact.phone = $('#newPhone').val();
   contact.email = $('#newEmail').val();
-  contact.group = _.uniq($('#newGroup').val().split(' ')) ;
+  contact.group = _.uniq($('#newGroup').val().toLowerCase().split(' ')) ;
   contact.birthday = $('#newBirthday').val();
   
   contacts.push(contact);
@@ -158,6 +162,39 @@ function sortAlpha(){
   updateList(); 
   saveToStorage(); 
 }; 
+
+function showAll(event){
+  var $item = $('.item');
+  $item.removeClass('hide');
+};
+
+function showFriends(event){
+  var $item = $('.item');
+  $item.addClass('hide'); 
+  $item.each(function(index){
+
+console.log("look at this!: ", $item.eq(index).children(".group").text());
+console.log("look at this!: ", $item.eq(index).children(".group").text().split(','));
+console.log("what does this returN?: ", _.includes($item.eq(index).children(".group").text().split(','), 'friends'));
+    if ( _.includes($item.eq(index).children(".group").text().split(','), 'friends') ) {
+      console.log("True?: ", ( _.includes($item.eq(index).children(".group").text().split(','), 'friends') ));
+      $item.eq(index).removeClass('hide');
+    } else {
+      $item.eq(index).addClass('hide');
+    }
+  }); 
+};
+
+// function showFamily(event){
+//   var $item = $('.item');
+//   $item.each(function(index){
+//     if ($item.eq(index).children(".type").text()!=='debit') {
+//       $item.eq(index).addClass('hide');
+//     } else {
+//       $item.eq(index).removeClass('hide');
+//     }
+//   })
+// };
 
 function filter() {
   // body...
