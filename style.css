@@ -3,37 +3,43 @@
   line-height: 1.5; 
   /*overflow: scroll;*/
   overflow: auto; 
+  font-family: Helvetica; 
 
 }
 
 body {
-  background-color: #65A7D6; 
-}
-
-.btn {
-  background-color: #5ED1CB;
-  font-size: 16px;
-}
-
-.btn:hover{
-  background-color: #87E687;
-  font-size: 18px;  
+  background-color: #C98967; 
 }
 
 #title{
-  background-color: #4671CF;
-  color: #46CF8F;
+  background-color: #C95A10;
+  color: #DEE823;
   margin-top: 100px; 
   text-align: center;
 }
 
-
 #form{
-  background-color: #87E1E6;
+  background-color: #D6DB9C;
   margin-top: 5px; 
   border: 1px solid;
-
 }
+
+#labels{
+  margin-top: 5px; 
+  font-size: 20px; 
+  font-weight: bold;
+}
+
+.btn {
+  background-color: #D9B259;
+  font-size: 16px;
+}
+
+.btn:hover{
+  background-color: #F7B016;
+  font-size: 18px;  
+}
+
 
 #form div{
   height: 50px;
@@ -58,7 +64,7 @@ input{
 }
 
 #body{
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
 }
 
 .thin {
@@ -69,21 +75,18 @@ input[type=checkbox] {
   height:25px;
 }
 
-.strike {
-  text-decoration: line-through;
-  background-color: #5ED1CB; 
-}
+
 
 #body .item {
-  background-color: #C5CCD6;
+  background-color: #DEDCBF;
 }
 
 #form input {
-  background-color: #C5CCD6;
+  background-color: #DEDCBF;
 }
 
 #body .item:nth-child(odd) {
-    background-color: #AEBEBF;   
+    background-color: #CCC4AD;   
 }
 
 
@@ -98,13 +101,12 @@ input[type=checkbox] {
   background-color: #CFE89E;
 }
 
-.pressed {
-  background-color: #6F9CE3; 
+.strike {
+  text-decoration: line-through;
 }
-
-.pressed:hover {
-  background-color: #5872C4; 
-};
+#body .item.selected {
+  background-color: #C24127;   
+}
 
 .check, .edit, .remove{
   text-align: right;

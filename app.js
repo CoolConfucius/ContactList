@@ -83,7 +83,7 @@ function remove(){
 
 function select(){
   var $item = $(this).closest('.item');
-  $item.children().toggleClass('strike'); 
+  $item.find("*").toggleClass('strike'); 
   $item.toggleClass('selected');
 };
 
@@ -201,7 +201,6 @@ function sortAlpha(){
     };
       return 0; 
     });
-
   }
   
   updateList(); 
