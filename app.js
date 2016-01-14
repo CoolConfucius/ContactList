@@ -115,28 +115,35 @@ function edit(){
     $parent.addClass("isEditing");
     $parent.attr("id", "previous"); 
     $parent.children(".name").attr("id", "previousName");
-    // $parent.children(".type").attr("id", "previousType");
-    // $parent.children(".amount").attr("id", "previousAmount");
-    // $parent.children(".date").attr("id", "previousDate");
+    $parent.children(".phone").attr("id", "previousPhone");
+    $parent.children(".email").attr("id", "previousEmail");
+    $parent.children(".birthday").attr("id", "previousBirthday");
+    $parent.children(".group").attr("id", "previousGroup");
     editObj.name = $("#previousName").text(); 
-    // editType = $parent.children(".type").text(); 
-    // editAmount = $parent.children(".amount").text().substr(1); 
-    // editDate = $parent.children(".date").text(); 
+    editObj.phone = $("#previousPhone").text(); 
+    editObj.email = $("#previousEmail").text(); 
+    editObj.birthday = $("#previousBirthday").text(); 
+    editObj.group = $("#previousGroup").text().split(/\W/); 
 
-
-    var $editForm = $('<div>').addClass('row').attr("id", "editForm");
+    var $editForm = $('<div>').addClass('row editing').attr("id", "editForm");
     $editForm.append($('<span>').addClass('col-sm-1').text('Name:'));
-    $editForm.append($('<input>').addClass('col-sm-9').attr({type: "text", id: "editName", placeholder: editObj.name} ) );
+    $editForm.append($('<input>').addClass('col-sm-4').attr({type: "text", id: "editName", placeholder: editObj.name} ) );
     
-    // $editForm.append($('<span>').addClass('col-sm-1').text('Type:'));
-    // $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Credit').attr("id", "editCredit"));
-    // $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Debit').attr("id", "editDebit"));
-    // $editForm.append($('<span>').addClass('col-sm-1 col-sm-offset-1').text('Amount:'));
-    // $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", step: "0.01", value: "0.00", min: "0.00", id: "editAmount"} ) );
-    // $editForm.append($('<span>').addClass('col-sm-1 col-sm-offset-1').text('Date:'));
-    // $editForm.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editDate"} ) );
-    $editForm.append($('<div>').addClass('col-sm-2 btn btn-default').text('Confirm').attr("id", "editConfirm"));
-    $parent.after($editForm);    
+    $editForm.append($('<span>').addClass('col-sm-1').text('Phone:'));
+    $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", id: "editPhone", step: "1", min: "0", placeholder: editObj.phone} ) );
+  
+    $editForm.append($('<span>').addClass('col-sm-1').text('Email:'));
+    $editForm.append($('<input>').addClass('col-sm-3').attr({type: "text", id: "editEmail", placeholder: editObj.email} ) );
+    
+    var $editForm2 = $('<div>').addClass('row editing').attr("id", "editForm2");
+    $editForm2.append($('<span>').addClass('col-sm-1').text('Groups:'));
+    $editForm2.append($('<input>').addClass('col-sm-5').attr({type: "text", id: "editGroup", placeholder: editObj.group} ) );
+    
+    $editForm2.append($('<span>').addClass('col-sm-2').text('Birthday:'));
+    $editForm2.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editBirthday"} ) );
+
+    $editForm2.append($('<div>').addClass('col-sm-1 btn btn-default').text('Confirm').attr("id", "editConfirm"));
+    $parent.after($editForm, $editForm2);    
   }
 
 
@@ -159,6 +166,7 @@ function closeEditForm(){
   $previous.removeClass("isEditing");
   $previous.removeAttr("id");
   $("#editForm").remove();  
+  $("#editForm2").remove();  
   editingContact = false;  
 };
 
