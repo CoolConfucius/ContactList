@@ -10,12 +10,15 @@ var editObj;
 function init() {
   loadFromStorage(); 
   updateList();
+  var $body = $('#body'); 
 
   $('#add').click(add);
   // $('#body').on('dblclick', '.remove', remove);
-  $('#body').on('click', '.remove', remove);
-  $('#body').on('click', '.edit', edit);
-  $('#body').on('click', '#editConfirm', confirm);
+  $body.on('click', '.remove', remove);
+  $body.on('click', '.edit', edit);
+  $body.on('click', '#editConfirm', confirm);
+  $body.on('click', '.select',(select));
+  $('#removeSelected').click(removeSelected);
   $('#sortAlpha').click(sortAlpha);
   $('#showAll').click(showAll);
   $('#showFriends').click(showFriends);
@@ -62,12 +65,9 @@ function updateList(){
     $newRow.append($('<div>').addClass('col-sm-2 birthday').text(contact.birthday) );
     var $icons = $('<div>').addClass('col-sm-2 row'); 
     $icons.append($('<span>').addClass('remove col-sm-4').text('\u27F0')); 
-    $icons.append($('<input />', { type: 'checkbox'}).addClass('check col-sm-4')); 
+    $icons.append($('<input />', { type: 'checkbox'}).addClass('select col-sm-4')); 
     $icons.append($('<span>').addClass('edit col-sm-4').text('\u270E')); 
     $newRow.append($icons);
-    // $newRow.append($('<div>').addClass('col-sm-1 remove').text('\u27F0')); 
-    // $newRow.append($('<input />', { type: 'checkbox'}).addClass('col-sm-1 check')); 
-    // $newRow.append($('<div>').addClass('col-sm-1 edit').text('\u270E')); 
     $contacts.append($newRow); 
   });
   $contactList.append($contacts); 
@@ -78,8 +78,30 @@ function remove(){
   var index = $(this).closest('.item').index(); 
   contacts.splice(index, 1); 
   updateList(); 
-  saveToStorage(); 
+  saveToStorage();
 }
+
+function select(){
+  var $item = $(this).closest('.item');
+  $item.children().toggleClass('strike'); 
+  $item.toggleClass('selected');
+};
+
+function removeSelected(){
+  var $item = $('.item');
+  var indexes = []; 
+  $item.each(function(index){
+    console.log(index);
+    if ($item.eq(index).hasClass('selected')) {
+      indexes.push(index);
+    };
+  });
+  if (indexes.length) {
+    _.pullAt(contacts, indexes);
+  };
+  updateList(); 
+  saveToStorage();
+};
 
 function edit(){
   var $this = $(this);
