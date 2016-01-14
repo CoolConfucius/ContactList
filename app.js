@@ -16,6 +16,7 @@ function init() {
   $('#body').on('dblclick', '.remove', remove);
   $('#body').on('click', '.edit', edit);
   $('#body').on('click', '#editConfirm', confirm);
+  $('#sortAlpha').click(sortAlpha);
 }
 
 
@@ -134,3 +135,17 @@ function closeEditForm(){
   $("#editForm").remove();  
   editingContact = false;  
 };
+
+function sortAlpha(){
+  contacts.sort(function(a, b){
+    if (a.name > b.name) {
+      return 1; 
+    };
+    if (a.name < b.name) {
+      return -1; 
+    };
+    return 0; 
+  });
+  updateList(); 
+  saveToStorage(); 
+}
