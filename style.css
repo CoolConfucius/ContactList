@@ -1,0 +1,105 @@
+*{
+  font-size: 16px; 
+  line-height: 1.5; 
+
+}
+
+body {
+  background-color: #65A7D6; 
+}
+
+.btn {
+  background-color: #5ED1CB;
+  font-size: 16px;
+}
+
+.btn:hover{
+  background-color: #87E687;
+  font-size: 18px;  
+}
+
+#title{
+  background-color: #4671CF;
+  color: #46CF8F;
+  margin-top: 100px; 
+  text-align: center;
+}
+
+
+#form{
+  background-color: #87E1E6;
+  margin-top: 5px; 
+  border: 1px solid;
+
+}
+
+#form div{
+  height: 50px;
+}
+
+#form .row div {
+  text-align: center; 
+  border: 1px solid;
+  padding-top: 8px; 
+}
+
+#form .row span {
+ padding-top: 10px;  
+ padding-left: 10px; 
+}
+
+input{
+  width: 100%;
+  height: 100%;
+  margin: 0; 
+  border: 1px solid;
+}
+
+#body{
+  margin-bottom: 50px; 
+}
+
+.thin {
+  border: 1px solid;
+}
+
+input[type=checkbox] {
+  height:25px;
+}
+
+.strike {
+  text-decoration: line-through;
+  background-color: #5ED1CB; 
+}
+
+#body .item {
+  background-color: #C5CCD6;
+}
+
+#form input {
+  background-color: #C5CCD6;
+}
+
+#body .item:nth-child(odd) {
+    background-color: #AEBEBF;   
+}
+
+
+.hide {
+  display: none; 
+}
+
+.editing{
+  background-color: #CFE89E;
+}
+.editing span{
+  background-color: #CFE89E;
+}
+
+.pressed {
+  background-color: #6F9CE3; 
+}
+
+.pressed:hover {
+  background-color: #5872C4; 
+};
