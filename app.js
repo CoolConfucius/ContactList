@@ -4,11 +4,10 @@ $(document).ready(init);
 
 var contacts = []; 
 var editingContact = false; 
+var isAlpha = false; 
 var editObj; 
 
 function init() {
-  console.log("init");
-  console.log(_.uniq([1,2,1,2,3]));
   loadFromStorage(); 
   updateList();
 
@@ -26,12 +25,11 @@ function init() {
 
 
 function add() {
-  console.log("addContact");
   var contact = {};
   contact.name = $('#newName').val();
   contact.phone = $('#newPhone').val();
   contact.email = $('#newEmail').val();
-  contact.group = _.uniq($('#newGroup').val().toLowerCase().split(' ')) ;
+  contact.group = _.uniq($('#newGroup').val().toLowerCase().split(/\W/)) ;
   contact.birthday = $('#newBirthday').val();
   
   contacts.push(contact);
@@ -41,12 +39,10 @@ function add() {
 }
 
 function saveToStorage(){
-  console.log("saveToStorage");
   localStorage.contacts = JSON.stringify(contacts); 
 }
 
 function loadFromStorage(){
-  console.log("loadFromStorage");
   if (!localStorage.contacts) {
     localStorage.contacts = '[]'; 
   };
@@ -54,13 +50,10 @@ function loadFromStorage(){
 }
 
 function updateList(){
-  console.log("updateList");
   var $contactList = $('#body');
   $contactList.empty(); 
-  console.log("show this");
   var $contacts = $('<div>').addClass('container').attr('id', "body");
   contacts.forEach(function(contact){
-    console.log("here?");
     var $newRow = $('<div>').addClass('row item'); 
     $newRow.append($('<div>').addClass('col-sm-3 name').text(contact.name) );
     $newRow.append($('<div>').addClass('col-sm-1 phone').text(contact.phone) );
@@ -82,7 +75,6 @@ function updateList(){
 
 
 function remove(){
-  console.log("remove!");
   var index = $(this).closest('.item').index(); 
   contacts.splice(index, 1); 
   updateList(); 
@@ -90,7 +82,6 @@ function remove(){
 }
 
 function edit(){
-  console.log("edit!");
   var $this = $(this);
   var $parent = $this.closest('.item'); 
   var index = $parent.index(); 
@@ -150,52 +141,69 @@ function closeEditForm(){
 };
 
 function sortAlpha(){
-  contacts.sort(function(a, b){
+  if (!isAlpha) {
+    isAlpha = true; 
+    contacts.sort(function(a, b){
     if (a.name > b.name) {
       return 1; 
     };
     if (a.name < b.name) {
       return -1; 
     };
-    return 0; 
-  });
+      return 0; 
+    });  
+  } else {
+    isAlpha = false; 
+    contacts.sort(function(a, b){
+    if (a.name > b.name) {
+      return -1; 
+    };
+    if (a.name < b.name) {
+      return 1; 
+    };
+      return 0; 
+    });
+
+  }
+  
   updateList(); 
   saveToStorage(); 
 }; 
 
-function showAll(event){
-  var $item = $('.item');
-  $item.removeClass('hide');
+function showAll(){
+  $('.item').removeClass('hide');
 };
 
-function showFriends(event){
+function showFriends(){
   var $item = $('.item');
   $item.addClass('hide'); 
   $item.each(function(index){
-
-console.log("look at this!: ", $item.eq(index).children(".group").text());
-console.log("look at this!: ", $item.eq(index).children(".group").text().split(','));
-console.log("what does this returN?: ", _.includes($item.eq(index).children(".group").text().split(','), 'friends'));
-    if ( _.includes($item.eq(index).children(".group").text().split(','), 'friends') ) {
-      console.log("True?: ", ( _.includes($item.eq(index).children(".group").text().split(','), 'friends') ));
+    if ( _.includes($item.eq(index).children(".group").text().split(/\W/), 'friends') ) {
       $item.eq(index).removeClass('hide');
-    } else {
-      $item.eq(index).addClass('hide');
-    }
+    } 
   }); 
 };
 
-// function showFamily(event){
-//   var $item = $('.item');
-//   $item.each(function(index){
-//     if ($item.eq(index).children(".type").text()!=='debit') {
-//       $item.eq(index).addClass('hide');
-//     } else {
-//       $item.eq(index).removeClass('hide');
-//     }
-//   })
-// };
+function showFamily(){
+  var $item = $('.item');
+  $item.addClass('hide'); 
+  $item.each(function(index){
+    if ( _.includes($item.eq(index).children(".group").text().split(/\W/), 'family') ) {
+      $item.eq(index).removeClass('hide');
+    } 
+  }); 
+};
 
-function filter() {
-  // body...
-}
+function showCustom(){
+  var $customFilter = $('#customFilter');
+  var array = $customFilter.val().toLowerCase().split(/\W/);
+  var $item = $('.item');
+  $item.addClass('hide'); 
+  $item.each(function(index){
+    array.forEach(function(entry){
+      if ( _.includes($item.eq(index).children(".group").text().split(/\W/), entry) ) {
+        $item.eq(index).removeClass('hide');
+      } 
+    });
+  }); 
+};
