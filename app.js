@@ -154,7 +154,7 @@ function confirm(){
   editObj.phone = $('#editPhone').val(); 
   editObj.email = $('#editEmail').val(); 
   editObj.birthday = $('#editBirthday').val(); 
-  editObj.group = $('#editGroup').val().toLowerCase().split(/\W/); 
+  editObj.group = _.uniq( $('#editGroup').val().toLowerCase().split(/\W/) ); 
   var index = $('#previous').index(); 
   contacts[index].name = editObj.name; 
   contacts[index].phone = editObj.phone; 
