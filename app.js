@@ -127,20 +127,20 @@ function edit(){
 
     var $editForm = $('<div>').addClass('row editing').attr("id", "editForm");
     $editForm.append($('<span>').addClass('col-sm-1').text('Name:'));
-    $editForm.append($('<input>').addClass('col-sm-4').attr({type: "text", id: "editName", placeholder: editObj.name} ) );
+    $editForm.append($('<input>').addClass('col-sm-4').attr({type: "text", id: "editName", value: editObj.name} ) );
     
     $editForm.append($('<span>').addClass('col-sm-1').text('Phone:'));
-    $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", id: "editPhone", step: "1", min: "0", placeholder: editObj.phone} ) );
+    $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", id: "editPhone", step: "1", min: "0", value: editObj.phone} ) );
   
     $editForm.append($('<span>').addClass('col-sm-1').text('Email:'));
-    $editForm.append($('<input>').addClass('col-sm-3').attr({type: "text", id: "editEmail", placeholder: editObj.email} ) );
+    $editForm.append($('<input>').addClass('col-sm-3').attr({type: "text", id: "editEmail", value: editObj.email} ) );
     
     var $editForm2 = $('<div>').addClass('row editing').attr("id", "editForm2");
     $editForm2.append($('<span>').addClass('col-sm-1').text('Groups:'));
-    $editForm2.append($('<input>').addClass('col-sm-5').attr({type: "text", id: "editGroup", placeholder: editObj.group} ) );
+    $editForm2.append($('<input>').addClass('col-sm-5').attr({type: "text", id: "editGroup", value: editObj.group} ) );
     
     $editForm2.append($('<span>').addClass('col-sm-2').text('Birthday:'));
-    $editForm2.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editBirthday"} ) );
+    $editForm2.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editBirthday", value: editObj.birthday} ) );
 
     $editForm2.append($('<div>').addClass('col-sm-1 btn btn-default').text('Confirm').attr("id", "editConfirm"));
     $parent.after($editForm, $editForm2);    
@@ -151,8 +151,16 @@ function edit(){
 
 function confirm(){
   editObj.name = $('#editName').val(); 
+  editObj.phone = $('#editPhone').val(); 
+  editObj.email = $('#editEmail').val(); 
+  editObj.birthday = $('#editBirthday').val(); 
+  editObj.group = $('#editGroup').val().toLowerCase().split(/\W/); 
   var index = $('#previous').index(); 
   contacts[index].name = editObj.name; 
+  contacts[index].phone = editObj.phone; 
+  contacts[index].email = editObj.email; 
+  contacts[index].birthday = editObj.birthday; 
+  contacts[index].group = editObj.group; 
   closeEditForm(); 
   updateList(); 
   saveToStorage(); 
