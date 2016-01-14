@@ -11,7 +11,7 @@ function init() {
   updateList();
 
   $('#add').click(add);
-  // $('#contactList').on('dblclick', 'li', removecontact);
+  $('#body').on('dblclick', '.delete', remove);
 }
 
 
@@ -49,16 +49,17 @@ function updateList(){
     console.log("here?");
     var $newRow = $('<div>').addClass('row item'); 
     $newRow.append($('<div>').addClass('col-md-5 name').text(contact.name) );
+    $newRow.append($('<div>').addClass('col-md-1 delete').text('\u27F0')); 
     $contacts.append($newRow); 
   });
   $contactList.append($contacts); 
 }
 
 
-// function removecontact(){
-//   console.log("DOUBLECLICK");
-//   var index = $(this).index(); 
-//   contacts.splice(index, 1); 
-//   updateList(); 
-//   saveToStorage(); 
-// }
+function remove(){
+  console.log("DOUBLECLICK");
+  var index = $(this).parent().index(); 
+  contacts.splice(index, 1); 
+  updateList(); 
+  saveToStorage(); 
+}
