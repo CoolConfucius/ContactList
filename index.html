@@ -12,8 +12,8 @@
   </div>
   <div class="container" id="form">
     <div class="row">      
-      <span class="col-sm-2 col-sm-offset-1">Your total number of contacts: </span>
-      <!-- <span class="col-sm-9" id="balance">$</span>     -->
+      <span class="col-sm-6">Your total number of contacts: </span>
+      <span class="col-sm-6" id="total"></span>    
     </div>
     <!-- <div class="row">
       <div class="col-sm-3">Show: </div>
@@ -23,33 +23,36 @@
     </div> -->
     <div class="row">
       <span class="col-sm-1">Name:</span>
-      <input class="col-sm-11" type="text" id="newName" required>      
-    </div>
-    <!-- <div class="row">
-      <span class="col-sm-1">Category:</span>
-      <input type="text" id="newCategory">
-
-      <span class="col-sm-2">Phone#:</span>
+      <input class="col-sm-4" type="text" id="newName" required>      
+      <span class="col-sm-1">Phone#:</span>
       <input class="col-sm-2" type="number" step="1" value="000" min="0" id="newPhone">
+      <span class="col-sm-1">Email:</span>
+      <input class="col-sm-3" type="text" id="newMail">
+    </div>
+    <div class="row">
+      <span class="col-sm-1">Category:</span>
+      <input class="col-sm-2" type="text" id="newCategory">
+
       <span class="col-sm-2">Birthday:</span>
       <input class="col-sm-3" type="date" id="newDate">
-    </div> -->
+    </div>
     <div class="row">
-      <!-- <div class="col-sm-6 btn btn-default" id="removeSelected">Remove Selected</div>  -->
       <div class="col-sm-6 btn btn-default" id="add">Add Contact</div>      
+      <div class="col-sm-6 btn btn-default" id="removeSelected">Remove Selected</div> 
     </div>
   </div>
-  <!-- <div class="container" id="labels">
+  <div class="container" id="labels">
     <div class="row">
-      <div class="col-sm-5" id="sortAlpha">Transaction</div>
-      <div class="col-sm-2">Date</div>
-      <div class="col-sm-1">Type</div>
-      <div class="col-sm-1">Amount</div>
-      <div class="col-sm-1">Select</div>
+      <div class="col-sm-3" id="sortAlpha">Name</div>
+      <div class="col-sm-1">Phone</div>
+      <div class="col-sm-2">Email</div>
+      <div class="col-sm-1">Group</div>      
+      <div class="col-sm-2">Birthday</div>
       <div class="col-sm-1">Remove</div>
+      <div class="col-sm-1">Select</div>
       <div class="col-sm-1">Edit</div>
     </div>
-  </div> -->
+  </div>
   <div class="container" id="body"></div>
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
